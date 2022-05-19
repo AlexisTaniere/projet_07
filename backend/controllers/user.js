@@ -59,3 +59,46 @@ exports.login = (req, res, next) => {
         }
     });
 };
+
+exports.deleteUser = (req, res, next) => {
+
+    if (req.params.id == req.auth) {
+        connection.query('DELETE FROM utilisateur WHERE id = ?', [req.params.id], (err, result) => {
+            if (err) {
+                return res.status(400).json({ err })
+            }
+            else {
+                return res.status(200).json({ message: "Utilisateur supprimé" });
+            }
+        })
+    }
+    else {
+        return res.status(403).json({ error: "Requête non autorisée" })
+    }
+};
+
+exports.getProfil = (req, res, next) => {
+
+    if (req.params.id == req.auth) {
+        connection.query('SELECT pseudo, email FROM utilisateur WHERE id = ?', [req.params.id], (err, result) => {
+            if (err) {
+                return res.status(400).json({ err })
+            }
+            if (result[0] == undefined) {
+                return res.status(401).json({ erreur: "Utilisateur introuvable !" });
+            }
+            else {
+                return res.status(200).json({
+                    pseudo: result[0].pseudo,
+                    email: result[0].email
+                })
+            }
+
+        })
+
+    }
+    else {
+        return res.status(403).json({ error: "Requête non autorisée" })
+    }
+
+};
