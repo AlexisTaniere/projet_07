@@ -3,7 +3,7 @@ const connection = require('../database');
 exports.createPost = (req, res, next) => {
     console.log(req.auth);
 
-    connection.query('INSERT INTO post (title, text, date, userId) VALUES (?, ?, DEFAULT, ?)', [req.body.title, req.body.text, req.auth], (err, result) => {
+    connection.query('INSERT INTO post (title, text, date, dateModify, userId) VALUES (?, ?, DEFAULT, NULL, ?)', [req.body.title, req.body.text, req.auth], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(400).json({ error: "Veuillez renseigner tous les champs" });
@@ -17,10 +17,13 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
 
-    connection.query('SELECT p.title, p.text, p.date, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
+    connection.query('SELECT p.title, p.text, p.date, p.dateModify, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
+        if (result[0] == undefined) {
+            return res.status(401).json({ erreur: "Aucun post trouvé !" });
+        }
         if (err) {
             console.log(err);
-            return res.status(400).json({ error: "Aucun post trouvé" });
+            return res.status(400).json({ err });
         }
         else {
             return res.status(200).json(result);
@@ -30,7 +33,7 @@ exports.getAllPosts = (req, res, next) => {
 
 exports.getUserPosts = (req, res, next) => {
 
-    connection.query('SELECT p.title, p.text, p.date, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id AND p.userId = ? ORDER BY date DESC LIMIT 50', [req.auth], (err, result) => {
+    connection.query('SELECT p.title, p.text, p.date, p.dateModify, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id AND p.userId = ? ORDER BY date DESC LIMIT 50', [req.auth], (err, result) => {
         if (result[0] == undefined) {
             return res.status(401).json({ erreur: "Aucun post trouvé !" });
         }
@@ -89,7 +92,7 @@ exports.modifyPost = (req, res, next) => {
         }
         else {
             if (result[0].userId == req.auth) {
-                connection.query('UPDATE post SET title = ?, text = ?, date = DEFAULT WHERE id = ?', [req.body.title, req.body.text, req.params.id], (err, result) => {
+                connection.query('UPDATE post SET title = ?, text = ?, dateModify = DEFAULT WHERE id = ?', [req.body.title, req.body.text, req.params.id], (err, result) => {
                     if (err) {
                         console.log(err);
                         return res.status(400).json({ err });
