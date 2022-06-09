@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import "../variable.scss";
+
+
+* {
+    font-family: "Lato";
+}
+
+nav {
+    text-align: center;
+}
+
+nav button {
+    margin-left: 15px;
+    padding: 5px;
+    color: $Primaire;
+    background-color: $Secondaire;
+    border-radius: 10px;
+    font-weight: bold;
+}

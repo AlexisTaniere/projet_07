@@ -3,12 +3,17 @@ const connection = require('../database');
 exports.createPost = (req, res, next) => {
     console.log(req.auth);
 
+    if (req.body.text === "") {
+        req.body.text = null;
+    }
+
     connection.query('INSERT INTO post (title, text, date, dateModify, userId) VALUES (?, ?, DEFAULT, NULL, ?)', [req.body.title, req.body.text, req.auth], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(400).json({ error: "Veuillez renseigner tous les champs" });
         }
         else {
+            console.log(result)
             return res.status(201).json({ message: "Post créé" });
         }
     })
@@ -17,7 +22,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
 
-    connection.query('SELECT p.title, p.text, p.date, p.dateModify, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
+    connection.query('SELECT p.title, p.id, p.text, p.date, p.dateModify, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
         if (result[0] == undefined) {
             return res.status(401).json({ erreur: "Aucun post trouvé !" });
         }
