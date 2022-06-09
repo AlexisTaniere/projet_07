@@ -22,7 +22,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
 
-    connection.query('SELECT p.title, p.id, p.text, p.date, p.dateModify, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
+    connection.query('SELECT p.title, p.id, p.userId, p.text, p.date, p.dateModify, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
         if (result[0] == undefined) {
             return res.status(401).json({ erreur: "Aucun post trouvé !" });
         }

@@ -79,26 +79,20 @@ exports.deleteUser = (req, res, next) => {
 
 exports.getProfil = (req, res, next) => {
 
-    if (req.params.id == req.auth) {
-        connection.query('SELECT pseudo, email FROM utilisateur WHERE id = ?', [req.params.id], (err, result) => {
-            if (err) {
-                return res.status(400).json({ err })
-            }
-            if (result[0] == undefined) {
-                return res.status(401).json({ erreur: "Utilisateur introuvable !" });
-            }
-            else {
-                return res.status(200).json({
-                    pseudo: result[0].pseudo,
-                    email: result[0].email
-                })
-            }
+    connection.query('SELECT pseudo, email, id FROM utilisateur WHERE id = ?', [req.auth], (err, result) => {
+        if (err) {
+            return res.status(400).json({ err })
+        }
+        if (result[0] == undefined) {
+            return res.status(401).json({ erreur: "Utilisateur introuvable !" });
+        }
+        else {
+            return res.status(200).json({
+                pseudo: result[0].pseudo,
+                email: result[0].email,
+                id: result[0].id
+            })
+        }
 
-        })
-
-    }
-    else {
-        return res.status(403).json({ error: "Requête non autorisée" })
-    }
-
+    })
 };
