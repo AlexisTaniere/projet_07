@@ -22,7 +22,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
 
-    connection.query('SELECT p.title, p.id, p.userId, p.text, p.date, p.dateModify, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
+    connection.query('SELECT p.title, p.id, p.userId, p.text, p.date, p.dateModify, p.nbLike, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
         if (result[0] == undefined) {
             return res.status(401).json({ erreur: "Aucun post trouvé !" });
         }
@@ -114,5 +114,30 @@ exports.modifyPost = (req, res, next) => {
 
         }
     })
+
+}
+
+
+exports.likePost = (req, res, next) => {
+    connection.query('SELECT * FROM postLike WHERE userId = ? and postId = ?', [req.auth, req.params.id], (err, result) => {
+        if (result[0]) {
+            // return res.status(200).json(result[0].userId);
+            connection.query('DELETE FROM postLike WHERE userId = ? and postId = ?', [req.auth, req.params.id], (err, result) => {
+                if (err) {
+                    return res.status(400).json({ err })
+                }
+                else {
+                    return res.status(200).json({ message: "Like enlevé" });
+                }
+            })
+        }
+        else {
+            connection.query('INSERT INTO postLike (userId, postId) VALUES (?, ?)', [req.auth, req.params.id], (err, result) => {
+                return res.status(400).json({ message: "L'utilisateur vient de liker ce post" })
+            })
+        }
+    })
+    // console.log(req.params.id, req.auth)
+
 
 }

@@ -26,15 +26,21 @@ const Post = () => {
     }
 
     const deletePost = (postid) => {
-        console.log("C'est clické")
         axios.delete("http://localhost:3000/post/" + postid)
             .then(() =>
                 getposts())
 
     }
 
-    const liked = () => {
-        console.log("C'est clické")
+    const liked = (postid) => {
+        // console.log("C'est clické")
+        axios.post("http://localhost:3000/post/like/" + postid)
+            .then(() => {
+                console.log("Fonction like appelée");
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     useEffect(() => {
@@ -61,8 +67,8 @@ const Post = () => {
                             {element.title ? <h2>{element.title}</h2> : null}
                             <div>{element.text}</div>
                             <div className="postElements">
-                                <div className="like" onClick={liked}>{like}</div>
-                                {user.id === element.userId ? <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div> : ""}
+                                <div className="like" onClick={() => liked(element.id)}>{like} {element.nbLike}</div>
+                                {user.id === element.userId ? <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div> : <div className="trash"></div>}
                             </div>
                         </div>
                     )

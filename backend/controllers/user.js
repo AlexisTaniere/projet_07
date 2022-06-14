@@ -32,7 +32,7 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
 
-    connection.query('SELECT * FROM utilisateur WHERE pseudo = ?', [req.body.pseudo], (err, result) => {
+    connection.query('SELECT * FROM utilisateur WHERE email = ?', [req.body.email], (err, result) => {
 
 
         if (result[0] == undefined) {

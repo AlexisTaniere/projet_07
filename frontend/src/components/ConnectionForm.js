@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useForm } from "react-hook-form"
 import { useNavigate } from 'react-router-dom'
+import "./ConnectionForm.scss"
 
 const ConnectionForm = () => {
 
@@ -20,8 +21,8 @@ const ConnectionForm = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <label>Pseudo</label>
-                <input {...register('pseudo')} type="text" />
+                <label>Email</label>
+                <input {...register('email')} type="email" />
             </div>
             <div>
                 <label>Password</label>
