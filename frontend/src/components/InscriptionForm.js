@@ -1,18 +1,30 @@
+import { useForm } from "react-hook-form"
+import axios from "axios"
+
 const InscriptionForm = () => {
 
+    const { register, handleSubmit } = useForm()
+
+    const onSubmit = (data) => {
+        axios.post("http://localhost:3000/auth/signup", data)
+            .then(() => {
+                console.log("Utilisateur inscrit")
+            })
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <label>Pseudo</label>
-                <input type="text" />
+                <input {...register('pseudo')} type="text" />
             </div>
             <div>
                 <label>Email</label>
-                <input type="email" />
+                <input {...register('email')} type="email" />
             </div>
             <div>
                 <label>Password</label>
-                <input type="password" />
+                <input {...register('password')} type="password" />
             </div>
             <button>S'inscrire</button>
         </form>
