@@ -1,3 +1,5 @@
+@import "../variable.scss";
+
 .logo {
     height: 200px;
     width: 200px;
@@ -6,4 +8,15 @@
 .centre {
     display: flex;
     justify-content: center;
+}
+
+.menu {
+    color: $Primaire;
+    border: 1px solid $Tertiaire;
+    border-radius: 25%;
+    padding: 5px;
+    text-align: center;
+    width: 16px;
+    margin: 0 auto;
+    margin-bottom: 10px;
 }

@@ -127,13 +127,17 @@ exports.likePost = (req, res, next) => {
                     return res.status(400).json({ err })
                 }
                 else {
+                    connection.query('UPDATE post SET nbLike = nbLike - 1 WHERE id = ?', [req.params.id], (err, result) => {
+                    })
                     return res.status(200).json({ message: "Like enlevé" });
                 }
             })
         }
         else {
             connection.query('INSERT INTO postLike (userId, postId) VALUES (?, ?)', [req.auth, req.params.id], (err, result) => {
-                return res.status(400).json({ message: "L'utilisateur vient de liker ce post" })
+                connection.query('UPDATE post SET nbLike = nbLike + 1 WHERE id = ?', [req.params.id], (err, result) => {
+                })
+                return res.status(200).json({ message: "L'utilisateur vient de liker ce post" })
             })
         }
     })

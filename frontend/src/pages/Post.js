@@ -36,7 +36,8 @@ const Post = () => {
         // console.log("C'est clické")
         axios.post("http://localhost:3000/post/like/" + postid)
             .then(() => {
-                console.log("Fonction like appelée");
+                // console.log("Fonction like appelée");
+                getposts()
             })
             .catch(err => {
                 console.log(err);
