@@ -11,8 +11,13 @@ const AddPost = () => {
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState()
 
+
     const onSubmit = (data) => {
-        axios.post("http://localhost:3000/post/", data)
+        const formdata = new FormData()
+        formdata.append("urlImage", data.image[0])
+        formdata.append("title", data.title)
+        formdata.append("text", data.text)
+        axios.post("http://localhost:3000/post/", formdata)
             .then((result) => {
                 navigate("/post");
             })
@@ -39,6 +44,9 @@ const AddPost = () => {
                         <label>Texte</label>
                     </div>
                     <textarea {...register('text')} type="text" rows="5" cols="100" maxLength={500} />
+                </div>
+                <div>
+                    <input {...register('image')} type="file" />
                 </div>
                 <button>Ajouter un post</button>
                 {error ?

@@ -2,12 +2,19 @@ const connection = require('../database');
 
 exports.createPost = (req, res, next) => {
     console.log(req.auth);
+    console.log(req.body)
 
+    let urlImage = null;
     if (req.body.text === "") {
         req.body.text = null;
     }
+    console.log(req.file)
+    if (req.file) {
+        urlImage = `${req.protocol}://${req.get("host")}/images/${req.file.filename
+            }`
+    }
 
-    connection.query('INSERT INTO post (title, text, date, dateModify, userId) VALUES (?, ?, DEFAULT, NULL, ?)', [req.body.title, req.body.text, req.auth], (err, result) => {
+    connection.query('INSERT INTO post (title, text, date, dateModify, userId, urlImage) VALUES (?, ?, DEFAULT, NULL, ?, ?)', [req.body.title, req.body.text, req.auth, urlImage], (err, result) => {
         if (err) {
             console.log(err);
             return res.status(400).json({ error: "Veuillez renseigner tous les champs" });
@@ -22,7 +29,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
 
-    connection.query('SELECT p.title, p.id, p.userId, p.text, p.date, p.dateModify, p.nbLike, u.pseudo FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
+    connection.query('SELECT p.title, p.id, p.userId, p.text, p.date, p.dateModify, p.nbLike, u.pseudo, p.urlImage FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
         if (result[0] == undefined) {
             return res.status(401).json({ erreur: "Aucun post trouvé !" });
         }

@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Connection from "./pages/Connection"
 import Post from "./pages/Post"
 import AddPost from "./pages/AddPost";
+import Profil from "./pages/Profil"
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<Connection />} />
         <Route path="/post" element={<Post />} />
         <Route path="/post/add" element={<AddPost />} />
+        <Route path="/profil" element={<Profil />} />
       </Routes>
     </BrowserRouter>
   );

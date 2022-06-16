@@ -7,10 +7,12 @@ import dateFormat from "dateformat"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Banner from "../components/Banner";
+import { useNavigate } from 'react-router-dom'
 
 
 
 const Post = () => {
+    const navigate = useNavigate();
 
 
 
@@ -45,6 +47,9 @@ const Post = () => {
     }
 
     useEffect(() => {
+        if (!window.localStorage.token) {
+            navigate('/')
+        }
         getposts();
         axios.get("http://localhost:3000/auth/")
             .then(({ data }) => {
@@ -52,6 +57,7 @@ const Post = () => {
             })
     }, [])
 
+    console.log(post)
     return (
         <>
             <Banner />
@@ -67,6 +73,9 @@ const Post = () => {
                             <div className="publicationInfo">Publié le {date} par {element.pseudo}</div>
                             {element.title ? <h2>{element.title}</h2> : null}
                             <div>{element.text}</div>
+                            <div>
+                                <img src={element.urlImage} />
+                            </div>
                             <div className="postElements">
                                 <div className="like" onClick={() => liked(element.id)}>{like} {element.nbLike}</div>
                                 {user.id === element.userId ? <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div> : <div className="trash"></div>}
