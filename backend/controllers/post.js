@@ -2,38 +2,35 @@ const connection = require('../database');
 const fs = require("fs");
 
 exports.createPost = (req, res, next) => {
-    console.log(req.auth);
-    console.log(req.body)
 
     let urlImage = null;
     if (req.body.text === "") {
         req.body.text = null;
     }
-    console.log(req.file)
+
     if (req.file) {
         urlImage = `${req.protocol}://${req.get("host")}/images/${req.file.filename
             }`
     }
 
-    connection.query('INSERT INTO post (title, text, date, dateModify, userId, urlImage) VALUES (?, ?, DEFAULT, NULL, ?, ?)', [req.body.title, req.body.text, req.auth, urlImage], (err, result) => {
-        if (err) {
-            console.log(err);
-            return res.status(400).json({ error: "Veuillez renseigner tous les champs" });
-        }
-        else {
-            console.log(result)
-            return res.status(201).json({ message: "Post créé" });
-        }
-    })
+    if (req.file || req.body.text) {
+        connection.query('INSERT INTO post (title, text, date, dateModify, userId, urlImage) VALUES (?, ?, DEFAULT, NULL, ?, ?)', [req.body.title, req.body.text, req.auth, urlImage], (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).json({ error: "Veuillez renseigner tous les champs" });
+            }
+            else {
+                console.log(result)
+                return res.status(201).json({ message: "Post créé" });
+            }
+        })
+    }
 
 }
 
 exports.getAllPosts = (req, res, next) => {
 
     connection.query('SELECT p.title, p.id, p.userId, p.text, p.date, p.dateModify, p.nbLike, u.pseudo, p.urlImage FROM post p, utilisateur u WHERE p.userId = u.id ORDER BY date DESC LIMIT 50', (err, result) => {
-        if (result[0] == undefined) {
-            return res.status(401).json({ erreur: "Aucun post trouvé !" });
-        }
         if (err) {
             console.log(err);
             return res.status(400).json({ err });
@@ -78,6 +75,10 @@ exports.deletePost = (req, res, next) => {
                     const filename = result[0].urlImage.split("/images/")[1];
                     fs.unlink(`images/${filename}`, () => {
                         console.log("image supprimée");
+                    })
+                }
+                if (result[0].nbLike != 0) {
+                    connection.query('DELETE FROM postLike WHERE postId = ?', [req.params.id], (err, result) => {
                     })
                 }
                 connection.query('DELETE FROM post WHERE id = ?', [req.params.id], (err, result) => {
