@@ -1,4 +1,5 @@
 const connection = require('../database');
+const fs = require("fs");
 
 exports.createPost = (req, res, next) => {
     console.log(req.auth);
@@ -73,6 +74,12 @@ exports.deletePost = (req, res, next) => {
         }
         else {
             if (result[0].userId == req.auth) {
+                if (result[0].urlImage) {
+                    const filename = result[0].urlImage.split("/images/")[1];
+                    fs.unlink(`images/${filename}`, () => {
+                        console.log("image supprimée");
+                    })
+                }
                 connection.query('DELETE FROM post WHERE id = ?', [req.params.id], (err, result) => {
                     if (err) {
                         return res.status(400).json({ err });

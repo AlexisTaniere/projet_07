@@ -73,9 +73,10 @@ const Post = () => {
                             <div className="publicationInfo">Publié le {date} par {element.pseudo}</div>
                             {element.title ? <h2>{element.title}</h2> : null}
                             <div>{element.text}</div>
-                            <div>
+                            {element.urlImage ? <div>
                                 <img src={element.urlImage} />
-                            </div>
+                            </div> : null}
+
                             <div className="postElements">
                                 <div className="like" onClick={() => liked(element.id)}>{like} {element.nbLike}</div>
                                 {user.id === element.userId ? <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div> : <div className="trash"></div>}
