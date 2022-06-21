@@ -76,3 +76,22 @@ textarea {
 img {
     height: 200px;
 }
+
+.profil {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.icon {
+    color: $Primaire;
+    width: 20px;
+    margin: 0 auto;
+}
+
+.centerIcon {
+    width: 20px;
+    text-align: center;
+    margin: 0 auto;
+}

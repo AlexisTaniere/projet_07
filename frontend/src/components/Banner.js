@@ -2,7 +2,7 @@ import "./Banner.scss"
 import { useNavigate } from 'react-router-dom'
 import logo from "./groupomania.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faUser, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios"
 
 const Banner = () => {
@@ -17,12 +17,16 @@ const Banner = () => {
     }
 
     function seeProfil() {
-        console.log("Profile cliqué")
         navigate("/Profil")
+    }
+
+    function seePosts() {
+        navigate("/Post")
     }
 
     const signout = <FontAwesomeIcon icon={faSignOutAlt} />
     const profil = <FontAwesomeIcon icon={faUser} />
+    const post = <FontAwesomeIcon icon={faEnvelope} />
 
 
 
@@ -40,6 +44,9 @@ const Banner = () => {
                 </span>
                 <span title="Profil">
                     <div className="menu__element" onClick={() => seeProfil()}> {profil} </div>
+                </span>
+                <span title="Post">
+                    <div className="menu__element" onClick={() => seePosts()}> {post} </div>
                 </span>
             </div>
         </>

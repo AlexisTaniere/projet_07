@@ -21,7 +21,7 @@ exports.signup = (req, res, next) => {
                     console.log(err);
                     return res.status(400).json({ error: message });
                 }
-                return res.status(201).json({ message: "User created" });
+                return res.status(201).json({ message: "Utilisateur créé" });
             })
         })
         .catch(error => {
@@ -62,8 +62,8 @@ exports.login = (req, res, next) => {
 
 exports.deleteUser = (req, res, next) => {
 
-    if (req.params.id == req.auth) {
-        connection.query('DELETE FROM utilisateur WHERE id = ?', [req.params.id], (err, result) => {
+    if (req.auth) {
+        connection.query('DELETE FROM utilisateur WHERE id = ?', [req.auth], (err, result) => {
             if (err) {
                 return res.status(400).json({ err })
             }
