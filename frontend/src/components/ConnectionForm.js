@@ -9,13 +9,18 @@ const ConnectionForm = () => {
     const { register, handleSubmit } = useForm()
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:3000/auth/login", data)
-            .then((result) => {
-                console.log(result.data.userId);
-                localStorage.token = result.data.token;
-                axios.defaults.headers.common['Authorization'] = "Bearer " + result.data.token;
-                navigate("/post");
-            })
+        if (data.password === "" || data.email === "") {
+            console.log("Veuillez remplir tous les champs")
+        }
+        else {
+            axios.post("http://localhost:3000/auth/login", data)
+                .then((result) => {
+                    console.log(result.data.userId);
+                    localStorage.token = result.data.token;
+                    axios.defaults.headers.common['Authorization'] = "Bearer " + result.data.token;
+                    navigate("/post");
+                })
+        }
     }
 
     return (

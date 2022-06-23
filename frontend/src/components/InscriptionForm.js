@@ -11,13 +11,18 @@ const InscriptionForm = () => {
 
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:3000/auth/signup", data)
-            .then(() => {
-                console.log("Utilisateur inscrit")
-            })
-            .catch(error => {
-                setError(error.response.data.error)
-            })
+        if (data.password === "" || data.email === "" || data.pseudo === "") {
+            console.log("Veuillez remplir tous les champs")
+        }
+        else {
+            axios.post("http://localhost:3000/auth/signup", data)
+                .then(() => {
+                    console.log("Utilisateur inscrit")
+                })
+                .catch(error => {
+                    setError(error.response.data.error)
+                })
+        }
     }
 
     return (
