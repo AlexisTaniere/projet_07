@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import ConnectionForm from "../components/ConnectionForm"
+import Logo from '../components/logo';
 import { useState } from "react";
 import InscriptionForm from '../components/InscriptionForm';
 import Banner from '../components/Banner';
@@ -18,7 +19,7 @@ const Connection = () => {
     };
     return (
         <>
-            <Banner />
+            <Logo />
             <nav>
                 <button onClick={connectionHandler}>
                     Connexion</button>

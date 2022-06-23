@@ -5,7 +5,7 @@ import Navbar from "../components/NavBar";
 import "./Post.scss"
 import dateFormat from "dateformat"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Banner from "../components/Banner";
 import { useNavigate } from 'react-router-dom'
 
@@ -67,6 +67,7 @@ const Post = () => {
                     const date = dateFormat(element.date, "dd/mm/yyyy") + ' à ' + dateFormat(element.date, "HH:MM");
                     const like = <FontAwesomeIcon icon={faThumbsUp} />
                     const trash = <FontAwesomeIcon icon={faTrash} />
+                    const edit = <FontAwesomeIcon icon={faEdit} />
                     return (
                         <div className="post">
                             <div className="publicationInfo">Publié le {date} par {element.pseudo}</div>
@@ -78,7 +79,7 @@ const Post = () => {
 
                             <div className="postElements">
                                 <div className="like" onClick={() => liked(element.id)}>{like} {element.nbLike}</div>
-                                {user.id === element.userId ? <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div> : <div className="trash"></div>}
+                                {user.id === element.userId ? <><div>{edit}</div> <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div></> : <div className="trash"></div>}
                             </div>
                         </div>
                     )
