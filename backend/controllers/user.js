@@ -35,7 +35,7 @@ exports.login = (req, res, next) => {
     connection.query('SELECT * FROM utilisateur WHERE email = ?', [req.body.email], (err, result) => {
 
 
-        if (result[0] == undefined) {
+        if (err || result[0] == undefined) {
             return res.status(401).json({ erreur: "Utilisateur introuvable !" });
         }
 
@@ -47,6 +47,7 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: result[0].id,
+                        // admin: result[0].admin,
                         token: jwt.sign(
                             { userId: result[0].id },
                             "RANDOM_TOKEN_SECRET",

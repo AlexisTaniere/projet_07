@@ -112,7 +112,13 @@ exports.modifyPost = (req, res, next) => {
         }
         else {
             if (result[0].userId == req.auth) {
-                connection.query('UPDATE post SET title = ?, text = ?, dateModify = DEFAULT WHERE id = ?', [req.body.title, req.body.text, req.params.id], (err, result) => {
+                let urlImage = result[0].urlImage;
+
+                if (req.file) {
+                    urlImage = `${req.protocol}://${req.get("host")}/images/${req.file.filename
+                        }`
+                }
+                connection.query('UPDATE post SET title = ?, text = ?, dateModify = DEFAULT, urlImage = ? WHERE id = ?', [req.body.title, req.body.text, urlImage, req.params.id], (err, result) => {
                     if (err) {
                         console.log(err);
                         return res.status(400).json({ err });
