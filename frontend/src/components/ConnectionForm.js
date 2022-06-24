@@ -22,6 +22,8 @@ const ConnectionForm = () => {
                     console.log(result.data.userId);
                     localStorage.token = result.data.token;
                     axios.defaults.headers.common['Authorization'] = "Bearer " + result.data.token;
+                    setError("")
+
                     navigate("/post");
                 })
                 .catch(error => {
