@@ -47,9 +47,12 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: result[0].id,
-                        // admin: result[0].admin,
+                        admin: result[0].admin,
                         token: jwt.sign(
-                            { userId: result[0].id },
+                            {
+                                userId: result[0].id,
+                                admin: result[0].admin
+                            },
                             "RANDOM_TOKEN_SECRET",
                             { expiresIn: '24h' }
                         )
@@ -80,7 +83,7 @@ exports.deleteUser = (req, res, next) => {
 
 exports.getProfil = (req, res, next) => {
 
-    connection.query('SELECT pseudo, email, id FROM utilisateur WHERE id = ?', [req.auth], (err, result) => {
+    connection.query('SELECT pseudo, email, id, admin FROM utilisateur WHERE id = ?', [req.auth], (err, result) => {
         if (err) {
             return res.status(400).json({ err })
         }
@@ -91,7 +94,8 @@ exports.getProfil = (req, res, next) => {
             return res.status(200).json({
                 pseudo: result[0].pseudo,
                 email: result[0].email,
-                id: result[0].id
+                id: result[0].id,
+                admin: result[0].admin
             })
         }
 

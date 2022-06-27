@@ -79,7 +79,10 @@ const Post = () => {
 
                             <div className="postElements">
                                 <div className="like" onClick={() => liked(element.id)}>{like} {element.nbLike}</div>
-                                {user.id === element.userId ? <><Link to={`/post/edit/${element.id}`} state={{ element }}><div>{edit}</div></Link> <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div></> : <div className="trash"></div>}
+                                {user.id === element.userId || user.admin === 1 ?
+                                    <><Link to={`/post/edit/${element.id}`} state={{ element }}><div>{edit}</div></Link>
+                                        <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div></>
+                                    : <div className="trash"></div>}
                             </div>
                         </div>
                     )

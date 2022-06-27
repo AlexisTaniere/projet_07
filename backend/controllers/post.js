@@ -70,7 +70,7 @@ exports.deletePost = (req, res, next) => {
             return res.status(400).json({ err });
         }
         else {
-            if (result[0].userId == req.auth) {
+            if (result[0].userId == req.auth || req.admin === 1) {
                 if (result[0].urlImage) {
                     const filename = result[0].urlImage.split("/images/")[1];
                     fs.unlink(`images/${filename}`, () => {
@@ -111,7 +111,7 @@ exports.modifyPost = (req, res, next) => {
             return res.status(400).json({ err });
         }
         else {
-            if (result[0].userId == req.auth) {
+            if (result[0].userId == req.auth || req.admin === 1) {
                 let urlImage = result[0].urlImage;
 
                 if (req.file) {
