@@ -39,11 +39,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    color: darken($Secondaire, 25%);
+    color: $Tertiaire;
 }
 
 .postElements a {
-    color: darken($Secondaire, 25%);
+    color: $Tertiaire;
 }
 
 .like,
@@ -67,7 +67,7 @@ h1 {
 
 button {
     padding: 5px;
-    color: $Primaire;
+    color: $Tertiaire;
     background-color: $Secondaire;
     border-radius: 10px;
     font-weight: bold;
@@ -98,4 +98,10 @@ img {
     width: 20px;
     text-align: center;
     margin: 0 auto;
+}
+
+textarea {
+    @media (max-width: 1024px) {
+        width: 90%;
+    }
 }

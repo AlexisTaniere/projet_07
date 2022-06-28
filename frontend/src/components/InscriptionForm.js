@@ -34,16 +34,16 @@ const InscriptionForm = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <label>Pseudo</label>
-                <input {...register('pseudo')} type="text" onChange={resetError} />
+                <label for="pseudo">Pseudo</label>
+                <input {...register('pseudo')} type="text" onChange={resetError} id="pseudo" />
             </div>
             <div>
-                <label>Email</label>
-                <input {...register('email')} type="email" onChange={resetError} />
+                <label for="email">Email</label>
+                <input {...register('email')} type="email" onChange={resetError} id="email" />
             </div>
             <div>
-                <label>Password</label>
-                <input {...register('password')} type="password" onChange={resetError} />
+                <label for="password">Password</label>
+                <input {...register('password')} type="password" onChange={resetError} id="password" />
             </div>
             {error ?
                 <><div>{error}</div><br></br></> : null}

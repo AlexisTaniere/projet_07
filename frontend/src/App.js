@@ -9,17 +9,7 @@ import ModifyPost from "./pages/ModifyPost";
 
 
 function App() {
-  // const data = { pseudo: 'Alex1', password: 'test' };
-  // console.log(data);
-  // axios.post("http://localhost:3000/auth/login", data)
-  //   .then((result) => {
-  //     console.log(result.data.userId);
-  //     localStorage.token = result.data.token;
-  //     axios.defaults.headers.common['Authorization'] = "Bearer " + result.data.token;
-  //   })
-  // return (
-  //   <div>{localStorage.token}</div>
-  // );
+
   axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.token;
 
   return (

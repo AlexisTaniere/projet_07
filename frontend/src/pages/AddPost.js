@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import NavBar from "../components/NavBar"
 import "./Post.scss"
 import Banner from "../components/Banner"
@@ -26,6 +26,12 @@ const AddPost = () => {
             })
     }
 
+    useEffect(() => {
+        if (!window.localStorage.token) {
+            navigate('/')
+        }
+    }, [])
+
 
     return (
         <>
@@ -35,15 +41,15 @@ const AddPost = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <div>
-                        <label>Titre</label>
+                        <label for="titre">Titre</label>
                     </div>
-                    <textarea {...register('title')} type="text" rows="2" cols="100" autoFocus maxLength={255} />
+                    <textarea {...register('title')} type="text" rows="2" cols="100" autoFocus maxLength={255} id="titre" />
                 </div>
                 <div>
                     <div>
-                        <label>Texte</label>
+                        <label for="texte">Texte</label>
                     </div>
-                    <textarea {...register('text')} type="text" rows="5" cols="100" maxLength={500} />
+                    <textarea {...register('text')} type="text" rows="5" cols="100" maxLength={500} id="texte" />
                 </div>
                 <div>
                     <input {...register('image')} type="file" />

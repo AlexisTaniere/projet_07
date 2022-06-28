@@ -43,15 +43,15 @@ const ModifyPost = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <div>
-                        <label>Titre</label>
+                        <label for="titre">Titre</label>
                     </div>
-                    <textarea {...register('title')} defaultValue={element.title} type="text" rows="2" cols="100" autoFocus maxLength={255} />
+                    <textarea {...register('title')} defaultValue={element.title} type="text" rows="2" cols="100" autoFocus maxLength={255} id="titre" />
                 </div>
                 <div>
                     <div>
-                        <label>Texte</label>
+                        <label for="texte">Texte</label>
                     </div>
-                    <textarea {...register('text')} defaultValue={element.text} type="text" rows="5" cols="100" maxLength={500} />
+                    <textarea {...register('text')} defaultValue={element.text} type="text" rows="5" cols="100" maxLength={500} id="texte" />
                 </div>
                 <div>
                     <input {...register('image')} type="file" />
