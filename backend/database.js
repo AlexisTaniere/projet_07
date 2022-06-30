@@ -13,9 +13,7 @@ connection.connect(function (err) {
     }
 
     console.log('Connected to the MySQL server.');
-    // connection.query('SHOW TABLES FROM test', (err, res) => {
-    //     return console.log(res);
-    // }
+
 
     connection.query('SELECT * FROM utilisateur', (err, res) => {
         return console.log(res);

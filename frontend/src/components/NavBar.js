@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./NavBar.scss";
 
+// Barre de navigation pour les posts
 const NavBar = () => {
 
     return (

@@ -3,6 +3,7 @@ import axios from "axios"
 import { useNavigate } from 'react-router-dom'
 import { useState } from "react"
 
+// Composant pour le formulaire d'inscription de la page d'accueil
 const InscriptionForm = () => {
 
     const { register, handleSubmit } = useForm()
@@ -12,7 +13,6 @@ const InscriptionForm = () => {
 
     const onSubmit = (data) => {
         if (data.password === "" || data.email === "" || data.pseudo === "") {
-            console.log("Veuillez remplir tous les champs")
             setError("Veuillez remplir tous les champs")
         }
         else {

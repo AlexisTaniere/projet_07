@@ -1,6 +1,7 @@
 import logo from "./groupomania.png"
 import "./Banner.scss"
 
+// Composant qui affiche le logo de Groupomania
 const Logo = () => {
 
     return (

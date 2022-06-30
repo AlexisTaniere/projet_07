@@ -10,7 +10,8 @@ import Banner from "../components/Banner";
 import { useNavigate } from 'react-router-dom'
 
 
-
+// Affiche l'ensemble des posts, la possibilité d'ajouter ou retirer un like
+// et si l'utilisateur possède les droits, la modification ou la suppression d'un post
 const Post = () => {
     const navigate = useNavigate();
 
@@ -19,14 +20,15 @@ const Post = () => {
     const [post, setPost] = useState([]);
     const [user, setUser] = useState({});
 
+    // Récupère l'ensemble des posts
     function getposts() {
         axios.get("http://localhost:3000/post/")
             .then(({ data }) => {
-                console.log(data)
                 setPost(data)
             })
     }
 
+    // Supprime le post ayant pour identifiant "postid"
     const deletePost = (postid) => {
         axios.delete("http://localhost:3000/post/" + postid)
             .then(() =>
@@ -34,11 +36,10 @@ const Post = () => {
 
     }
 
+    // Gère les likes d'un post
     const liked = (postid) => {
-        // console.log("C'est clické")
         axios.post("http://localhost:3000/post/like/" + postid)
             .then(() => {
-                // console.log("Fonction like appelée");
                 getposts()
             })
             .catch(err => {
@@ -51,6 +52,8 @@ const Post = () => {
             navigate('/')
         }
         getposts();
+
+        // Récupère les informations de l'utilisateur
         axios.get("http://localhost:3000/auth/")
             .then(({ data }) => {
                 setUser(data)

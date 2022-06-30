@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSlash } from "@fortawesome/free-solid-svg-icons";
 import "./Post.scss"
 
+// Affiche les informations d'un utlisateur et permet la suppression du compte
 const Profil = () => {
 
     const [user, setUser] = useState({});

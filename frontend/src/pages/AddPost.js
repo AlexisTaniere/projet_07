@@ -6,6 +6,8 @@ import NavBar from "../components/NavBar"
 import "./Post.scss"
 import Banner from "../components/Banner"
 
+
+// Page permettant d'ajouter un post
 const AddPost = () => {
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()

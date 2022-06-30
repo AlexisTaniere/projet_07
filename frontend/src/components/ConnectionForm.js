@@ -4,6 +4,8 @@ import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import "./ConnectionForm.scss"
 
+
+// Composant du formulaire de connexion de la page principale
 const ConnectionForm = () => {
 
     const navigate = useNavigate()
@@ -21,7 +23,7 @@ const ConnectionForm = () => {
                     console.log(result.data.userId);
                     localStorage.token = result.data.token;
                     axios.defaults.headers.common['Authorization'] = "Bearer " + result.data.token;
-                    setError("")
+                    // setError("")
 
                     navigate("/post");
                 })

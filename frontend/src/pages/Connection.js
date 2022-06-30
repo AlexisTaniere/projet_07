@@ -3,8 +3,8 @@ import ConnectionForm from "../components/ConnectionForm"
 import Logo from '../components/logo';
 import { useState } from "react";
 import InscriptionForm from '../components/InscriptionForm';
-import Banner from '../components/Banner';
 
+// Page d'accueil pour la connexion ou l'inscription
 const Connection = () => {
 
     const [connection, setConnection] = useState(false);

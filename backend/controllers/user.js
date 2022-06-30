@@ -1,8 +1,12 @@
+// Ensemble des controllers pour les utilisateurs
+
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 const connection = require('../database');
 
+
+// Permet à un utilisateur de créer un compte
 exports.signup = (req, res, next) => {
     console.log(req.body);
     bcrypt.hash(req.body.password, 10)
@@ -30,6 +34,8 @@ exports.signup = (req, res, next) => {
         });
 };
 
+
+// Permet à un utilisateur de se connecter avec son email et son mot de passe
 exports.login = (req, res, next) => {
 
     connection.query('SELECT * FROM utilisateur WHERE email = ?', [req.body.email], (err, result) => {
@@ -64,6 +70,8 @@ exports.login = (req, res, next) => {
     });
 };
 
+
+// Permet de supprimer le compte d'un utilisateur
 exports.deleteUser = (req, res, next) => {
 
     if (req.auth) {
@@ -81,6 +89,8 @@ exports.deleteUser = (req, res, next) => {
     }
 };
 
+
+// Permet de récupérer les informations du profil d'un utilisateur
 exports.getProfil = (req, res, next) => {
 
     connection.query('SELECT pseudo, email, id, admin FROM utilisateur WHERE id = ?', [req.auth], (err, result) => {

@@ -7,7 +7,7 @@ import "./Post.scss"
 import Banner from "../components/Banner"
 import { useParams, useLocation } from "react-router-dom"
 
-
+// Page de modification d'un post
 const ModifyPost = () => {
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
