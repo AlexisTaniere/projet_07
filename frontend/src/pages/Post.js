@@ -72,20 +72,20 @@ const Post = () => {
                     const trash = <FontAwesomeIcon icon={faTrash} />
                     const edit = <FontAwesomeIcon icon={faEdit} />
                     return (
-                        <div className="post">
+                        <div className="post" key={`post-${element.id}`}>
                             <div className="publicationInfo">Publié le {date} par {element.pseudo}</div>
                             {element.title ? <h2>{element.title}</h2> : null}
                             <div>{element.text}</div>
                             {element.urlImage ? <div>
-                                <img src={element.urlImage} />
+                                <img src={element.urlImage} alt="" />
                             </div> : null}
 
                             <div className="postElements">
                                 <div className="like" onClick={() => liked(element.id)}>{like} {element.nbLike}</div>
                                 {user.id === element.userId || user.admin === 1 ?
-                                    <><Link to={`/post/edit/${element.id}`} state={{ element }}><div>{edit}</div></Link>
+                                    <><Link aria-label="Modifier" to={`/post/edit/${element.id}`} state={{ element }}><div>{edit}</div></Link>
                                         <div className="trash" onClick={() => deletePost(element.id)}>{trash}</div></>
-                                    : <div className="trash"></div>}
+                                    : <div className="notrash"></div>}
                             </div>
                         </div>
                     )

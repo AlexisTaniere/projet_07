@@ -15,8 +15,6 @@ const ModifyPost = () => {
     const params = useParams()
     const location = useLocation()
 
-    console.log(location.state)
-    console.log(params.id)
     const { element } = location.state
 
 
@@ -43,18 +41,18 @@ const ModifyPost = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <div>
-                        <label for="titre">Titre</label>
+                        <label htmlFor="titre">Titre</label>
                     </div>
                     <textarea {...register('title')} defaultValue={element.title} type="text" rows="2" cols="100" autoFocus maxLength={255} id="titre" />
                 </div>
                 <div>
                     <div>
-                        <label for="texte">Texte</label>
+                        <label htmlFor="texte">Texte</label>
                     </div>
                     <textarea {...register('text')} defaultValue={element.text} type="text" rows="5" cols="100" maxLength={500} id="texte" />
                 </div>
                 <div>
-                    <input {...register('image')} type="file" />
+                    <input {...register('image')} aria-label="Ajouter une image" type="file" />
                 </div>
                 <button>Modifier un post</button>
                 {error ?

@@ -9,7 +9,7 @@ const Logo = () => {
             <div className="centre">
                 <img src={logo}
                     className="logo"
-                    alt="logo"
+                    alt="logo de groupomania"
                 />
             </div>
         </>

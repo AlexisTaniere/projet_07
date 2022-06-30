@@ -53,10 +53,16 @@
 
 .like {
     margin-left: 33%;
+    cursor: pointer;
 }
 
 .trash {
     margin-right: 33%;
+    cursor: pointer;
+}
+
+.notrash {
+    margin-right: 48%;
 }
 
 form,

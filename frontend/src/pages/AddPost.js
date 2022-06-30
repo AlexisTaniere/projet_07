@@ -43,18 +43,18 @@ const AddPost = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <div>
-                        <label for="titre">Titre</label>
+                        <label htmlFor="titre">Titre</label>
                     </div>
                     <textarea {...register('title')} type="text" rows="2" cols="100" autoFocus maxLength={255} id="titre" />
                 </div>
                 <div>
                     <div>
-                        <label for="texte">Texte</label>
+                        <label htmlFor="texte">Texte</label>
                     </div>
                     <textarea {...register('text')} type="text" rows="5" cols="100" maxLength={500} id="texte" />
                 </div>
                 <div>
-                    <input {...register('image')} type="file" />
+                    <input {...register('image')} aria-label="Ajouter une image" type="file" />
                 </div>
                 <button>Ajouter un post</button>
                 {error ?

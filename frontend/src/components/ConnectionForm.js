@@ -13,17 +13,14 @@ const ConnectionForm = () => {
     const [error, setError] = useState()
 
     const onSubmit = (data) => {
-        console.log(data)
         if (data.password === "" || data.email === "") {
             setError("Veuillez remplir tous les champs")
         }
         else {
             axios.post("http://localhost:3000/auth/login", data)
                 .then((result) => {
-                    console.log(result.data.userId);
                     localStorage.token = result.data.token;
                     axios.defaults.headers.common['Authorization'] = "Bearer " + result.data.token;
-                    // setError("")
 
                     navigate("/post");
                 })
@@ -41,11 +38,11 @@ const ConnectionForm = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <input {...register('email')} type="email" onChange={resetError} id="email" />
             </div>
             <div>
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input type="password" onChange={resetError} {...register('password')} id="password" />
             </div>
             {error ?
