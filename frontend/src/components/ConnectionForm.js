@@ -46,7 +46,7 @@ const ConnectionForm = () => {
             </div>
             <div>
                 <label for="password">Password</label>
-                <input {...register('password')} type="password" onChange={resetError} id="password" />
+                <input type="password" onChange={resetError} {...register('password')} id="password" />
             </div>
             {error ?
                 <><div>{error}</div><br></br></> : null}
