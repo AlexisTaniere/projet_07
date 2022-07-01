@@ -15,10 +15,6 @@ connection.connect(function (err) {
     console.log('Connected to the MySQL server.');
 
 
-    connection.query('SELECT * FROM utilisateur', (err, res) => {
-        return console.log(res);
-    })
-
 });
 
 module.exports = connection;
