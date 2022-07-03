@@ -14,7 +14,6 @@ const ModifyPost = () => {
     const [error, setError] = useState()
     const params = useParams()
     const location = useLocation()
-
     const { element } = location.state
 
 
