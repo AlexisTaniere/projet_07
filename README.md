@@ -3,11 +3,11 @@ Ce projet intitulé Groupomania consiste à réaliser un réseau social d'entrep
 
 ## Technologies utilisées
     - Backend (serveur) :
-        - [Serveur Node](https://nodejs.org/en/) (v16.13.1) 
-        - [Express](https://expressjs.com/fr/)
-        - Javascript 
-        - Base de données [mysql](https://www.mysql.com/fr/) (v8.0.29)
-        - [Nodemon](https://nodemon.io/)
+        * [Serveur Node](https://nodejs.org/en/) (v16.13.1) 
+        * [Express](https://expressjs.com/fr/)
+        * Javascript 
+        * Base de données [mysql](https://www.mysql.com/fr/) (v8.0.29)
+        * [Nodemon](https://nodemon.io/)
 
     - Frontend (client):
         - Javascript/[React](https://fr.reactjs.org/) (v18.1.0)
